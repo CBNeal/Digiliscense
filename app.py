@@ -12,12 +12,7 @@ def register():
     blood = request.form["blood"]
     contact = request.form["contact"]
     info = request.form["info"]
-
     
     print(f"Name: {name}, Blood: {blood}, Contact: {contact}, Info: {info}")
 
     return f"Thanks {name}, your Digilicense has been registered!"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
