@@ -1,6 +1,18 @@
-from flask import Flask, render_template, request, jsonify
-
+from flask import Flask, render_template, request, jsonify, session
+from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(50))
+    bloodtype = db.Column(db.String(50))
+
+
+
 
 @app.route("/")
 def home():
@@ -12,13 +24,8 @@ def register():
     blood = request.form["blood"]
     contact = request.form["contact"]
     info = request.form["info"]
-    
     print(f"Name: {name}, Blood: {blood}, Contact: {contact}, Info: {info}")
-    context = {'name':name,
-               'blood':blood,
-               'contact':contact,
-               'info':info}
-    return f"Thanks {name}, your Digilicense has been registered! To display your information, add [/USER] to the end of this URL", jsonify(context)
+    return f"Thanks {name}, your Digilicense has been registered! To display your information, add [/USER] to the end of this URL"
 
 
 
