@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digilicense Registration</title>
+</head>
+<body>
+    <h2>Register Your Digilicense</h2>
+    <form action="/register" method="POST">
+        
+        <!-- Name -->
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <!-- Blood Type -->
+        <label for="blood">Blood Type:</label><br>
+        <select id="blood" name="blood" required>
+            <option value="">Select...</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select><br><br>
+
+        <!-- Emergency Contact -->
+        <label for="contact">Emergency Contact Number:</label><br>
+        <input type="tel" id="contact" name="contact" placeholder="123-456-7890" required><br><br>
+
+        <!-- Additional Info -->
+        <label for="info">Medical Info / Notes:</label><br>
+        <textarea id="info" name="info" rows="4" cols="40"></textarea><br><br>
+
+        <!-- Submit -->
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
