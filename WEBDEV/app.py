@@ -1,18 +1,29 @@
 from flask import Flask, render_template, request, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+
+################
+#Database config
+################
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+################
+#Database model 
+################
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(50))
-    bloodtype = db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable = False)
+    bloodtype = db.Column(db.String(10), nullable = False)
+    contact = db.Column(db.String(50), nullable = False)
+    info = db.Column(db.String(200), nullable = True)
 
-
-
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 @app.route("/")
 def home():
@@ -20,31 +31,26 @@ def home():
 
 @app.route("/register", methods=["POST"])
 def register():
-    name = request.form["name"]
-    blood = request.form["blood"]
-    contact = request.form["contact"]
-    info = request.form["info"]
-    print(f"Name: {name}, Blood: {blood}, Contact: {contact}, Info: {info}")
-    return f"Thanks {name}, your Digilicense has been registered! To display your information, add [/USER] to the end of this URL"
+    name = request.form.get["name"]
+    blood = request.form.get["blood"]
+    contact = request.form.get["contact"]
+    info = request.form.get["info"]
+    
+    #Validation
+    if not name or blood or not contact:
+        return "Please fill out all required fields.", 400
+    #Save to database
+    new_user = User(name = name, bloodtype = blood, contact = contact, info = info)
+    db.session.add(new_user)
+    db.session.commit()
 
+    return redirect(url_for("user_list"))
+    
+@app.route("/USER)
+def user_list():
+    users = user.query.all()
+    return render_template("index.html", users = users)
 
-
-'''
-@app.route('/')
-def home():
-    return render_template('index.html')
-'''
-'''
-@app.route('/submit', methods = ['POST'])
-def submit():
-    name = request.form['name']
-    return f"hello {name}! Thanks for submitting the form"
-'''
-###This app route will provide the user information for when a nfc tag is scanned
-@app.route('/USER')
-def test():
-    return render_template("index.html") 
-
-
+####################################
 if __name__ == '__main__':
     app.run(debug=True)
