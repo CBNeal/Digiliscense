@@ -30,10 +30,12 @@ def home():
 
 @app.route("/register", methods=["POST"])
 def register():
-    name = request.form.get("name")
-    blood = request.form.get("blood")
-    contact = request.form.get("contact")
-    info = request.form.get("info")
+    name = request.form.get("name", "").strip()
+    blood = request.form.get("blood", "").strip
+    contact = request.form.get("contact", "").strip
+    info = request.form.get("info", "").strip
+
+    print("FORM DATA:", request.form)
     
     #Validation
     if not name or blood or not contact:
