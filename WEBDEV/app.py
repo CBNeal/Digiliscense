@@ -45,8 +45,8 @@ def register():
     db.session.commit()
 
     return redirect(url_for("user_list"))
-    
-@app.route("/USER)
+
+@app.route("/user")
 def user_list():
     users = user.query.all()
     return render_template("index.html", users = users)
