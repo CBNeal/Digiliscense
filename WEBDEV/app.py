@@ -21,8 +21,7 @@ class User(db.Model):
     contact = db.Column(db.String(50), nullable = False)
     info = db.Column(db.String(200), nullable = True)
 
-@app.before_first_request
-def create_tables():
+with app.app_context():
     db.create_all()
 
 @app.route("/")
@@ -31,10 +30,10 @@ def home():
 
 @app.route("/register", methods=["POST"])
 def register():
-    name = request.form.get["name"]
-    blood = request.form.get["blood"]
-    contact = request.form.get["contact"]
-    info = request.form.get["info"]
+    name = request.form.get("name")
+    blood = request.form.get("blood")
+    contact = request.form.get("contact")
+    info = request.form.get("info")
     
     #Validation
     if not name or blood or not contact:
