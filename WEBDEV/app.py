@@ -30,12 +30,14 @@ def home():
 
 @app.route("/register", methods=["POST"])
 def register():
-    name = request.form.get("name", "").strip()
-    blood = request.form.get("blood", "").strip
-    contact = request.form.get("contact", "").strip
-    info = request.form.get("info", "").strip
+    # Debug print
+    print("FORM DATA RECEIVED:", request.form)
 
-    print("FORM DATA:", request.form)
+    # Grab values from the form
+    name = request.form.get("name", "").strip()
+    blood = request.form.get("blood", "").strip()
+    contact = request.form.get("contact", "").strip()
+    info = request.form.get("info", "").strip()
     
     #Validation
     if not name or blood or not contact:
@@ -45,13 +47,16 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
+    print(f"✅ Saved user: {name}, {blood}, {contact}, {info}")
+
     return redirect(url_for("user_list"))
 
-@app.route("/user")
+@app.route("/USER")
 def user_list():
     users = user.query.all()
     return render_template("index.html", users = users)
 
 ####################################
 if __name__ == '__main__':
+    print("✅ Flask app started successfully (Digilicense)")
     app.run(debug=True)
