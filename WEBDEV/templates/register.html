@@ -1,18 +1,57 @@
-<!DOCTYPE html>
-<html>
+!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digilicense Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 40px;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #2c6bed;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #174bb5;
+        }
+    </style>
 </head>
 <body>
     <h2>Register Your Digilicense</h2>
     <form action="/register" method="POST">
         
-        <!-- Name -->
-        <label for="name">Full Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+        <!-- Full Name -->
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
 
         <!-- Blood Type -->
-        <label for="blood">Blood Type:</label><br>
+        <label for="blood">Blood Type:</label>
         <select id="blood" name="blood" required>
             <option value="">Select...</option>
             <option value="A+">A+</option>
@@ -23,15 +62,15 @@
             <option value="AB-">AB-</option>
             <option value="O+">O+</option>
             <option value="O-">O-</option>
-        </select><br><br>
+        </select>
 
         <!-- Emergency Contact -->
-        <label for="contact">Emergency Contact Number:</label><br>
-        <input type="tel" id="contact" name="contact" placeholder="123-456-7890" required><br><br>
+        <label for="contact">Emergency Contact Number:</label>
+        <input type="tel" id="contact" name="contact" placeholder="123-456-7890" required>
 
-        <!-- Additional Info -->
-        <label for="info">Medical Info / Notes:</label><br>
-        <textarea id="info" name="info" rows="4" cols="40"></textarea><br><br>
+        <!-- Additional Info (Optional) -->
+        <label for="info">Medical Info / Notes (Optional):</label>
+        <textarea id="info" name="info" rows="4" cols="40" placeholder="Add any extra medical info here..."></textarea>
 
         <!-- Submit -->
         <button type="submit">Register</button>
