@@ -33,16 +33,17 @@ def register():
     # Debug print
     print("FORM DATA RECEIVED:", request.form)
 
-    # Grab values from the form
+    # Grab and strip form fields
     name = request.form.get("name", "").strip()
     blood = request.form.get("blood", "").strip()
     contact = request.form.get("contact", "").strip()
     info = request.form.get("info", "").strip()
-    
-    #Validation
-    if not name or blood or not contact:
+
+    # Validation
+    if not name or not blood or not contact:
         return "Please fill out all required fields.", 400
-    #Save to database
+
+    # Save to database
     new_user = User(name = name, bloodtype = blood, contact = contact, info = info)
     db.session.add(new_user)
     db.session.commit()
@@ -53,7 +54,7 @@ def register():
 
 @app.route("/USER")
 def user_list():
-    users = user.query.all()
+    users = User.query.all()
     return render_template("index.html", users = users)
 
 ####################################
