@@ -29,6 +29,16 @@ with app.app_context():
 def home():
     return render_template("register.html")
 
+@app.route("/access", methods=["POST"])
+def access():
+    pin = request.form['pin'].strip()
+    user = User.query.filter_by(pin=pin).first()
+
+    if user:
+        return render_template("user.html", user=user)
+    else:
+        return "❌ Invalid PIN. User not found.", 404
+
 @app.route("/register", methods=["POST"])
 def register():
     # Debug print
@@ -57,9 +67,7 @@ def register():
 
 @app.route('/user/<int:user_id>')
 def get_user(user_id):
-    conn = get_db_connection()
-    user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
-    conn.close()
+    user = User.query.filter_by(pin=pin).first()
 
     if user:
         return render_template('user.html', user=user)
