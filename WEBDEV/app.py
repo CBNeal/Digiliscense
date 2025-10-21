@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 ################
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    pin = db.Column(db.String(5), nullable = False)
     name = db.Column(db.String(50), nullable = False)
     bloodtype = db.Column(db.String(10), nullable = False)
     contact = db.Column(db.String(50), nullable = False)
@@ -34,6 +35,7 @@ def register():
     print("FORM DATA RECEIVED:", request.form)
 
     # Grab and strip form fields
+    pin = request.form.get("pin", "").strip()
     name = request.form.get("name", "").strip()
     blood = request.form.get("blood", "").strip()
     contact = request.form.get("contact", "").strip()
@@ -44,13 +46,26 @@ def register():
         return "Please fill out all required fields.", 400
 
     # Save to database
-    new_user = User(name = name, bloodtype = blood, contact = contact, info = info)
+    new_user = User(name = name, pin = pin,  bloodtype = blood, contact = contact, info = info)
     db.session.add(new_user)
     db.session.commit()
 
-    print(f"✅ Saved user: {name}, {blood}, {contact}, {info}")
+    print(f"✅ Saved user: {name}, {pin}, {blood}, {contact}, {info}")
 
     return redirect(url_for("user_list"))
+
+
+@app.route('/user/<int:user_id>')
+def get_user(user_id):
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+    conn.close()
+
+    if user:
+        return render_template('user.html', user=user)
+    else:
+        return f"User with ID {user_id} not found.", 404
+
 
 @app.route("/USER")
 def user_list():
