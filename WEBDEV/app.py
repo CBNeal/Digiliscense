@@ -53,14 +53,14 @@ def register():
 
     # Validation
     if not name or not blood or not contact:
-        return "Please fill out all required fields.", 400
+        return "Please fill out all required fields., User will not work properly if all fields are not filled", 400
 
     # Save to database
     new_user = User(name = name, pin = pin,  bloodtype = blood, contact = contact, info = info)
     db.session.add(new_user)
     db.session.commit()
 
-    print(f"✅ Saved user: {name}, {pin}, {blood}, {contact}, {info}")
+    print(f"✅ Saved user: {name}, {pin}, {blood}, {contact}, {info}, User saved into SQLITE file")
 
     return redirect(url_for("user_list"))
 
@@ -72,7 +72,7 @@ def get_user(user_id):
     if user:
         return render_template('user.html', user=user)
     else:
-        return f"User with ID {user_id} not found.", 404
+        return f"User with ID {user_id} not found. Check again and see if the Code on the DIGILISCENSE is correct", 404
 
 ### For showcasing the user  page 
 @app.route("/USER")
