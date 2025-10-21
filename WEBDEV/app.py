@@ -24,7 +24,7 @@ class User(db.Model):
 
 with app.app_context():
     db.create_all()
-
+## This is for the "homebase", opening page - C
 @app.route("/")
 def home():
     return render_template("register.html")
@@ -74,7 +74,7 @@ def get_user(user_id):
     else:
         return f"User with ID {user_id} not found.", 404
 
-
+### For showcasing the user  page 
 @app.route("/USER")
 def user_list():
     users = User.query.all()
