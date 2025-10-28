@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registration Confirmed</title>
-    <p>You can return to the Page and test your PIN</p>
-
+    <title>Registration Successful</title>
+</head>
+<body>
+    {% if pin %}
+        <h2>Registration Complete!</h2>
+        <p>Your assigned PIN: <strong>{{ pin }}</strong>strong></p>
+        <p>Keep this safe to access your Digilicense later.</p>
+        <a href="/">Back to Register</a>
+    {% else %}
+        <p>No PIN provided.</p>
+    {% endif %}
 </body>
 </html>
