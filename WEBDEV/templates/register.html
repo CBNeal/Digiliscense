@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,6 +50,9 @@
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required>
 
+        <!-- PIN-->
+        <label for="PIN">User PIN:</label>
+        <input type="text" name="pin" pattern="\d{6}" maxlength="6" required title="Enter a 6-digit PIN">
         <!-- Blood Type -->
         <label for="blood">Blood Type:</label>
         <select id="blood" name="blood" required>
