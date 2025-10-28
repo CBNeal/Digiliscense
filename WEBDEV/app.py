@@ -81,4 +81,5 @@ def user_list():
 ####################################
 if __name__ == '__main__':
     print("✅ Flask app started successfully (Digilicense)")
+    print("Temporary URL is shown, Permanent URL coming in a future update")
     app.run(debug=True)
